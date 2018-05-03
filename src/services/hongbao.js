@@ -25,6 +25,10 @@ function handleReceiving (data) {
 }
 
 export default {
+  async logout () {
+    await storage.remove('token')
+    wx.redirectTo({url: '/pages/index/main'})
+  },
   async userReceiving (data) {
     data = await this.request(data ? {url: '/user/receiving', method: 'POST', data} : {url: '/user/receiving'})
     return handleReceiving(data)

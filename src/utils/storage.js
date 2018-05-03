@@ -17,5 +17,14 @@ export default {
         fail: reject
       })
     })
+  },
+  remove (key) {
+    return new Promise((resolve, reject) => {
+      wx.removeStorage({
+        key,
+        success: resolve,
+        fail: reject
+      })
+    })
   }
 }

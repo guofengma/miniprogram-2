@@ -17,7 +17,7 @@
         </swiper-item>
       </swiper>
 
-      <view class="hello">您好 {{user._mail}} (uid: {{user.id}}) 持续开发中 v0.4.1</view>
+      <view class="hello">您好 {{user._mail}} (uid: {{user.id}}) 持续开发中 v0.5.0</view>
 
       <view class="breadcrumb">
         <view class="breadcrumb__item">
@@ -28,6 +28,10 @@
         <view class="breadcrumb__item" @click="clickAlipay">
           复制支付宝红包码
           <button class="breadcrumb__button"></button>
+        </view>
+        <view class="breadcrumb__split">/</view>
+        <view class="breadcrumb__item" @click="clickLogout">
+          退出登录
         </view>
       </view>
 
@@ -194,6 +198,27 @@
       },
       async clickWebsite () {
         await clipboard.setData('https://www.mtdhb.com')
+      },
+      clickLogout () {
+        wx.showModal({
+          title: '您确定要退出登录吗？',
+          content: '退出后需要重新扫码或复制 token 才能进入本页',
+          confirmText: '退出',
+          cancelText: '点错了',
+          success: async res => {
+            if (res.confirm) {
+              try {
+               await hongbao.logout()
+              } catch (e) {
+                wx.showModal({
+                  title: '退出登录出错',
+                  content: e.message,
+                  showCancel: false
+                })
+              }
+            }
+          }
+        })
       }
     }
   }
