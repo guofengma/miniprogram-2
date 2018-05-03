@@ -199,26 +199,16 @@
       async clickWebsite () {
         await clipboard.setData('https://www.mtdhb.com')
       },
-      clickLogout () {
-        wx.showModal({
-          title: '您确定要退出登录吗？',
-          content: '退出后需要重新扫码或复制 token 才能进入本页',
-          confirmText: '退出',
-          cancelText: '点错了',
-          success: async res => {
-            if (res.confirm) {
-              try {
-               await hongbao.logout()
-              } catch (e) {
-                wx.showModal({
-                  title: '退出登录出错',
-                  content: e.message,
-                  showCancel: false
-                })
-              }
-            }
-          }
-        })
+      async clickLogout () {
+        try {
+          await hongbao.logout()
+        } catch (e) {
+          wx.showModal({
+            title: '退出登录出错',
+            content: e.message,
+            showCancel: false
+          })
+        }
       }
     }
   }

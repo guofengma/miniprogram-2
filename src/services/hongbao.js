@@ -25,9 +25,27 @@ function handleReceiving (data) {
 }
 
 export default {
-  async logout () {
-    await storage.remove('token')
-    wx.redirectTo({url: '/pages/index/main'})
+  logout () {
+    return new Promise((resolve, reject) => {
+      wx.showModal({
+        title: '您确定要退出登录吗？',
+        content: '退出后需要重新扫码或复制 token 才能进入本页',
+        confirmText: '退出',
+        cancelText: '点错了',
+        success: async res => {
+          if (res.confirm) {
+            try {
+              await storage.remove('token')
+              wx.redirectTo({url: '/pages/index/main'})
+              resolve()
+            } catch (e) {
+              reject(e)
+            }
+          }
+        },
+        fail: reject
+      })
+    })
   },
   async userReceiving (data) {
     data = await this.request(data ? {url: '/user/receiving', method: 'POST', data} : {url: '/user/receiving'})
