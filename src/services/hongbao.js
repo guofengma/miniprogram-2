@@ -2,6 +2,7 @@ import timeout from '../utils/timeout'
 import request from '../utils/request'
 import clipboard from '../utils/clipboard'
 import storage from '../utils/storage'
+import scanCode from '../utils/scanCode'
 
 function add0 (value) {
   return ('00' + value).slice(-2)
@@ -25,6 +26,20 @@ function handleReceiving (data) {
 }
 
 export default {
+  scanToken () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const {result} = await scanCode()
+        if (this.likeToken(result)) {
+          await storage.setData('token', result)
+          return resolve(result)
+        }
+      } catch (e) {
+        console.error(e)
+      }
+      reject()
+    })
+  },
   logout () {
     return new Promise((resolve, reject) => {
       wx.showModal({
@@ -35,6 +50,8 @@ export default {
         success: async res => {
           if (res.confirm) {
             try {
+              this._user = null
+              this._token = null
               await storage.remove('token')
               resolve()
             } catch (e) {

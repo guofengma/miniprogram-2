@@ -5,7 +5,7 @@
     </view>
 
     <view class="normal" v-if="view === 'normal'">
-      <image @click="scanCode" v-for="(item, index) in normal" :key="index" mode="aspectFill" :src="item" />
+      <image @click="scanToken" v-for="(item, index) in normal" :key="index" mode="aspectFill" :src="item" />
     </view>
 
     <view class="hongbao" v-if="view === 'hongbao'">
@@ -82,7 +82,6 @@
 
 <script>
   import hongbao from '../../services/hongbao'
-  import scanCode from '../../utils/scanCode'
   import storage from '../../utils/storage'
   import clipboard from '../../utils/clipboard'
   import timeout from '../../utils/timeout'
@@ -168,27 +167,25 @@
         const data = await hongbao.userRefresh(this.userReceiving[0].id)
         if (data.status === 0) {
           await timeout(5000)
-          this.refreshUserReceiving()
+          await this.refreshUserReceiving()
         } else {
           this.userReceiving[0] = data
           this.enableHongbao = true
           this.userAvailable = await hongbao.userAvailable()
         }
       },
-      async scanCode (event) {
+      async scanToken (event) {
         try {
-          const {result} = await scanCode()
-          if (hongbao.likeToken(result)) {
-            this.view = 'loading'
-            await storage.setData('token', result)
-            return this.getData()
-          }
+          await hongbao.scanToken()
+          this.view = 'loading'
+          await this.getData()
+        } catch (e) {
           wx.showModal({
             title: '扫描的目标不正确',
             content: '请访问 https://www.mtdhb.com 了解如何使用',
             showCancel: false
           })
-        } catch (e) {}
+        }
       },
       async clickAlipay () {
         await clipboard.setData('c7XYed92oO')
