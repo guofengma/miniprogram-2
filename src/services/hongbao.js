@@ -36,7 +36,6 @@ export default {
           if (res.confirm) {
             try {
               await storage.remove('token')
-              wx.redirectTo({url: '/pages/index/main'})
               resolve()
             } catch (e) {
               reject(e)

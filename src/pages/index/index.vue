@@ -17,7 +17,7 @@
         </swiper-item>
       </swiper>
 
-      <view class="hello">您好 {{user._mail}} (uid: {{user.id}}) 持续开发中 v0.5.0</view>
+      <view class="hello">您好 {{user._mail}} (uid: {{user.id}}) 持续开发中 v0.5.1</view>
 
       <view class="breadcrumb">
         <view class="breadcrumb__item">
@@ -202,6 +202,7 @@
       async clickLogout () {
         try {
           await hongbao.logout()
+          this.view = 'normal'
         } catch (e) {
           wx.showModal({
             title: '退出登录出错',
