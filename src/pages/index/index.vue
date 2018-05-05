@@ -81,331 +81,331 @@
 </template>
 
 <script>
-  import hongbao from '../../services/hongbao'
-  import storage from '../../utils/storage'
-  import clipboard from '../../utils/clipboard'
-  import timeout from '../../utils/timeout'
+import hongbao from '../../services/hongbao';
+import storage from '../../utils/storage';
+import clipboard from '../../utils/clipboard';
+import timeout from '../../utils/timeout';
 
-  export default {
-    data () {
-      return {
-        normal: [
-          'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/03/04/ChMkJ1oJW4iIIAZJAAfcOXA1PHcAAiH8gHsUiYAB9xR139.jpg',
-          'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/03/04/ChMkJloJW36IGDpwAAd_V2iVa6wAAiH8gF1_xAAB39v037.jpg',
-          'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/03/04/ChMkJ1oJW5SIfKCrAAs6A-fVlFQAAiH8gJQcWwACzob837.jpg'
-        ],
-        view: '',
-        user: null,
-        zhuangbi: null,
-        userAvailable: null,
-        notice: null,
-        userCookie: null,
-        userReceiving: [],
-        phone: '',
-        url: '',
-        enableHongbao: true
-      }
-    },
-    async onLoad () {
+export default {
+  data() {
+    return {
+      normal: [
+        'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/03/04/ChMkJ1oJW4iIIAZJAAfcOXA1PHcAAiH8gHsUiYAB9xR139.jpg',
+        'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/03/04/ChMkJloJW36IGDpwAAd_V2iVa6wAAiH8gF1_xAAB39v037.jpg',
+        'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/03/04/ChMkJ1oJW5SIfKCrAAs6A-fVlFQAAiH8gJQcWwACzob837.jpg'
+      ],
+      view: '',
+      user: null,
+      zhuangbi: null,
+      userAvailable: null,
+      notice: null,
+      userCookie: null,
+      userReceiving: [],
+      phone: '',
+      url: '',
+      enableHongbao: true
+    };
+  },
+  async onLoad() {
+    try {
+      this.phone = await storage.getData('phone');
+    } catch (e) {}
+  },
+  async onShow() {
+    await this.getData();
+  },
+  async onPullDownRefresh() {
+    await this.getData();
+    wx.stopPullDownRefresh();
+  },
+  onShareAppMessage() {
+    return {
+      title: '一键最佳',
+      path: '/pages/index/main'
+    };
+  },
+  methods: {
+    async getData() {
       try {
-        this.phone = await storage.getData('phone')
-      } catch (e) {}
-    },
-    async onShow () {
-      await this.getData()
-    },
-    async onPullDownRefresh () {
-      await this.getData()
-      wx.stopPullDownRefresh()
-    },
-    onShareAppMessage () {
-      return {
-        title: '一键最佳',
-        path: '/pages/index/main'
+        this.user = await hongbao.user();
+        this.view = 'hongbao';
+        // 各自请求而不是 Promise.all()，这样不会因为一个失败或很慢，导致全部显示不出来
+        ['zhuangbi', 'notice', 'userAvailable', 'userCookie', 'userReceiving'].forEach(key => {
+          // eslint-disable-next-line
+          hongbao[key]().then(data => (this[key] = data));
+        });
+      } catch (e) {
+        console.error(e);
+        this.view = 'normal';
       }
     },
-    methods: {
-      async getData () {
-        try {
-          this.user = await hongbao.user()
-          this.view = 'hongbao'
-          // 各自请求而不是 Promise.all()，这样不会因为一个失败或很慢，导致全部显示不出来
-          ;['zhuangbi', 'notice', 'userAvailable', 'userCookie', 'userReceiving'].forEach(key => {
-            // eslint-disable-next-line
-            hongbao[key]().then(data => this[key] = data)
-          })
-        } catch (e) {
-          console.error(e)
-          this.view = 'normal'
-        }
-      },
-      async submitHongbao (event) {
-        if (!this.enableHongbao) {
-          return
-        }
-        const {url, phone} = event.target.value
-        if (!url || !phone) {
-          return wx.showModal({
-            content: '请将信息填写完整',
-            showCancel: false
-          })
-        }
-        try {
-          await storage.setData('phone', phone)
-          this.enableHongbao = false
-          this.url = ''
-          this.phone = phone
-          const data = await hongbao.userReceiving({url, phone})
-          this.userReceiving.unshift(data)
-          await this.refreshUserReceiving()
-        } catch (e) {
-          console.error(e)
-          this.enableHongbao = true
-        }
-      },
-      async refreshUserReceiving () {
-        const data = await hongbao.userRefresh(this.userReceiving[0].id)
-        if (data.status === 0) {
-          await timeout(5000)
-          await this.refreshUserReceiving()
-        } else {
-          this.userReceiving[0] = data
-          this.enableHongbao = true
-          this.userAvailable = await hongbao.userAvailable()
-        }
-      },
-      async scanToken (event) {
-        try {
-          await hongbao.scanToken()
-          this.view = 'loading'
-          await this.getData()
-        } catch (e) {
-          wx.showModal({
-            title: '扫描的目标不正确',
-            content: '请访问 https://www.mtdhb.com 了解如何使用',
-            showCancel: false
-          })
-        }
-      },
-      async clickAlipay () {
-        await clipboard.setData('c7XYed92oO')
-      },
-      async clickQQGroup () {
-        await clipboard.setData('617166836')
-      },
-      async clickWebsite () {
-        await clipboard.setData('https://www.mtdhb.com')
-      },
-      async clickLogout () {
-        try {
-          await hongbao.logout()
-          this.view = 'normal'
-        } catch (e) {
-          wx.showModal({
-            title: '退出登录出错',
-            content: e.message,
-            showCancel: false
-          })
-        }
+    async submitHongbao(event) {
+      if (!this.enableHongbao) {
+        return;
+      }
+      const {url, phone} = event.target.value;
+      if (!url || !phone) {
+        return wx.showModal({
+          content: '请将信息填写完整',
+          showCancel: false
+        });
+      }
+      try {
+        await storage.setData('phone', phone);
+        this.enableHongbao = false;
+        this.url = '';
+        this.phone = phone;
+        const data = await hongbao.userReceiving({url, phone});
+        this.userReceiving.unshift(data);
+        await this.refreshUserReceiving();
+      } catch (e) {
+        console.error(e);
+        this.enableHongbao = true;
+      }
+    },
+    async refreshUserReceiving() {
+      const data = await hongbao.userRefresh(this.userReceiving[0].id);
+      if (data.status === 0) {
+        await timeout(5000);
+        await this.refreshUserReceiving();
+      } else {
+        this.userReceiving[0] = data;
+        this.enableHongbao = true;
+        this.userAvailable = await hongbao.userAvailable();
+      }
+    },
+    async scanToken(event) {
+      try {
+        await hongbao.scanToken();
+        this.view = 'loading';
+        await this.getData();
+      } catch (e) {
+        wx.showModal({
+          title: '扫描的目标不正确',
+          content: '请访问 https://www.mtdhb.com 了解如何使用',
+          showCancel: false
+        });
+      }
+    },
+    async clickAlipay() {
+      await clipboard.setData('c7XYed92oO');
+    },
+    async clickQQGroup() {
+      await clipboard.setData('617166836');
+    },
+    async clickWebsite() {
+      await clipboard.setData('https://www.mtdhb.com');
+    },
+    async clickLogout() {
+      try {
+        await hongbao.logout();
+        this.view = 'normal';
+      } catch (e) {
+        wx.showModal({
+          title: '退出登录出错',
+          content: e.message,
+          showCancel: false
+        });
       }
     }
   }
+};
 </script>
 
 <style lang="less">
-  page,
-  view,
-  input,
-  textarea {
-    box-sizing: border-box;
+page,
+view,
+input,
+textarea {
+  box-sizing: border-box;
+}
+
+.loading {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #999;
+}
+
+.normal {
+  image {
+    width: 100%;
+    display: block;
+    margin-bottom: 8px;
+  }
+}
+
+.hongbao {
+  font-size: 15px;
+  padding: 20px 15px;
+  overflow-x: hidden;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.zhuangbi {
+  color: rgb(91, 171, 96);
+  height: 30px;
+  line-height: 30px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &__text {
+    color: rgb(221, 35, 35);
+  }
+}
+
+.hello {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: bold;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+
+  &__item {
+    position: relative;
+    color: #40a9ff;
+    padding: 15px 0;
   }
 
-  .loading {
-    height: 100vh;
+  &__split {
+    padding: 0 8px;
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  &__button {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.alert {
+  margin-bottom: 15px;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-size: 14px;
+
+  &--info {
+    border: 1px solid #91d5ff;
+    background-color: #e6f7ff;
+  }
+
+  &--notice {
+    border: 1px solid #ffe58f;
+    background-color: #fffbe6;
+  }
+}
+
+.getHongbao {
+  &__input,
+  &__textarea {
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    width: 100%;
+    color: #333;
+  }
+
+  &__input {
+    line-height: 1;
+    height: 40px;
+    padding: 0 12px;
+  }
+
+  &__textarea {
+    padding: 12px;
+    line-height: 1.5;
+    margin: 15px 0;
+  }
+
+  &__website {
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #40a9ff;
+  }
+
+  &__list {
+    border-bottom: 1px dotted #ccc;
+  }
+
+  &__item {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #999;
+    padding: 10px 0;
+    border-top: 1px dotted #ccc;
+    text-align: center;
   }
 
-  .normal {
-    image {
-      width: 100%;
-      display: block;
-      margin-bottom: 8px;
+  &__itemTime {
+    font-family: Aarial;
+    width: 50px;
+  }
+
+  &__get {
+    color: #fff;
+    background-color: #1890ff;
+    border-color: #1890ff;
+    border: 1px solid transparent;
+    padding: 12px;
+    height: auto;
+    border-radius: 4px;
+    line-height: 1;
+    margin-bottom: 15px;
+    font-size: 15px;
+
+    &--disabled {
+      opacity: 0.7;
     }
   }
 
-  .hongbao {
-    font-size: 15px;
-    padding: 20px 15px;
-    overflow-x: hidden;
-    color: rgba(0, 0, 0, .65);
+  &__itemPrice {
+    width: 80px;
+    padding: 0 20px;
   }
 
-  .zhuangbi {
-    color: rgb(91, 171, 96);
-    height: 30px;
-    line-height: 30px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  &__itemOther {
+    text-align: left;
+    flex: 1;
+  }
 
-    &__text {
+  &__itemMessage {
+    &--success {
+      color: rgb(91, 171, 96);
+    }
+
+    &--fail {
       color: rgb(221, 35, 35);
     }
   }
+}
 
-  .hello {
-    color: rgba(0, 0, 0, .85);
-    font-weight: bold;
-  }
-
-  .breadcrumb {
-    display: flex;
-    align-items: center;
-
-    &__item {
-      position: relative;
-      color: #40a9ff;
-      padding: 15px 0;
-    }
-
-    &__split {
-      padding: 0 8px;
-      color: rgba(0, 0, 0, .45);
-    }
-
-    &__button {
-      opacity: 0;
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-    }
-  }
-
-  .alert {
-    margin-bottom: 15px;
-    border-radius: 4px;
-    padding: 8px 15px;
+.joinGroup {
+  &__qq {
     font-size: 14px;
-
-    &--info {
-      border: 1px solid #91d5ff;
-      background-color: #e6f7ff;
-    }
-
-    &--notice {
-      border: 1px solid #ffe58f;
-      background-color: #fffbe6;
-    }
+    margin: 15px 0;
+    text-align: center;
+    color: #40a9ff;
   }
 
-  .getHongbao {
-    &__input,
-    &__textarea {
-      background: #fff;
-      border: 1px solid #d9d9d9;
-      border-radius: 4px;
-      width: 100%;
-      color: #333;
-    }
-
-    &__input {
-      line-height: 1;
-      height: 40px;
-      padding: 0 12px;
-    }
-
-    &__textarea {
-      padding: 12px;
-      line-height: 1.5;
-      margin: 15px 0;
-    }
-
-    &__website {
-      font-size: 14px;
-      text-align: center;
-      margin-bottom: 15px;
-      color: #40a9ff;
-    }
-
-    &__list {
-      border-bottom: 1px dotted #ccc;
-    }
-
-    &__item {
-      display: flex;
-      align-items: center;
-      padding: 10px 0;
-      border-top: 1px dotted #ccc;
-      text-align: center;
-    }
-
-    &__itemTime {
-      font-family: Aarial;
-      width: 50px;
-    }
-
-    &__get {
-      color: #fff;
-      background-color: #1890ff;
-      border-color: #1890ff;
-      border: 1px solid transparent;
-      padding: 12px;
-      height: auto;
-      border-radius: 4px;
-      line-height: 1;
-      margin-bottom: 15px;
-      font-size: 15px;
-
-      &--disabled {
-        opacity: 0.7;
-      }
-    }
-
-    &__itemPrice {
-      width: 80px;
-      padding: 0 20px;
-    }
-
-    &__itemOther {
-      text-align: left;
-      flex: 1;
-    }
-
-    &__itemMessage {
-      &--success {
-        color: rgb(91, 171, 96);
-      }
-
-      &--fail {
-        color: rgb(221, 35, 35);
-      }
-    }
+  &__wx {
+    text-align: center;
+    font-size: 14px;
   }
 
-  .joinGroup {
-    &__qq {
-      font-size: 14px;
-      margin: 15px 0;
-      text-align: center;
-      color: #40a9ff;
-    }
-
-    &__wx {
-      text-align: center;
-      font-size: 14px;
-    }
-
-    &__wxQrcode {
-      width: 220px;
-      height: 220px;
-      display: block;
-      margin: 5px auto 0;
-    }
+  &__wxQrcode {
+    width: 220px;
+    height: 220px;
+    display: block;
+    margin: 5px auto 0;
   }
+}
 </style>
