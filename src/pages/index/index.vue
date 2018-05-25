@@ -17,14 +17,9 @@
         </swiper-item>
       </swiper>
 
-      <view class="hello">您好 {{user._mail}} (uid: {{user.id}}) 持续开发中 v0.5.2</view>
+      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.6.0</view>
 
       <view class="breadcrumb">
-        <view class="breadcrumb__item">
-          反馈问题
-          <button class="breadcrumb__button" open-type="contact"></button>
-        </view>
-        <view class="breadcrumb__split">/</view>
         <view class="breadcrumb__item" @click="clickAlipay">
           复制支付宝红包码
           <button class="breadcrumb__button"></button>
@@ -121,7 +116,8 @@ export default {
   onShareAppMessage() {
     return {
       title: '一键最佳',
-      path: '/pages/index/main'
+      path: '/pages/index/main',
+      imageUrl: this.normal[0]
     };
   },
   methods: {
