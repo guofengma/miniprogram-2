@@ -70,7 +70,7 @@ export default {
     return handleReceiving(data);
   },
   async userRefresh(receivingId) {
-    const data = await this.request({url: '/user/refresh', method: 'POST', data: {receivingId}});
+    const data = await this.request({url: `/user/receiving/${receivingId}`});
     return handleReceiving(data);
   },
   async userCookie() {

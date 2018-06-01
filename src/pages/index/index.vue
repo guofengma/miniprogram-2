@@ -17,7 +17,7 @@
         </swiper-item>
       </swiper>
 
-      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.6.0</view>
+      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.6.1</view>
 
       <view class="breadcrumb">
         <view class="breadcrumb__item" @click="clickAlipay">
@@ -122,6 +122,7 @@ export default {
   },
   methods: {
     async getData() {
+      wx.showNavigationBarLoading();
       try {
         this.user = await hongbao.user();
         this.view = 'hongbao';
@@ -133,6 +134,7 @@ export default {
         console.error(e);
         this.view = 'normal';
       }
+      wx.hideNavigationBarLoading();
     },
     async submitHongbao(event) {
       if (!this.enableHongbao) {
@@ -347,9 +349,7 @@ textarea {
 
   &__get {
     color: #fff;
-    background-color: #1890ff;
-    border-color: #1890ff;
-    border: 1px solid transparent;
+    background-color: #d9534f;
     padding: 12px;
     height: auto;
     border-radius: 4px;
