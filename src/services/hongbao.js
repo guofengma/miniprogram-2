@@ -113,9 +113,9 @@ export default {
         return res.data || {};
       }
       if (options.url.indexOf('/user') !== -1) {
-        wx.showModal({
-          content: res.message,
-          showCancel: false
+        wx.showToast({
+          title: res.message,
+          icon: 'none'
         });
       }
       return Promise.reject(res);

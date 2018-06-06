@@ -17,7 +17,7 @@
         </swiper-item>
       </swiper>
 
-      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.6.1</view>
+      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.7.0</view>
 
       <view class="breadcrumb">
         <view class="breadcrumb__item" @click="clickAlipay">
@@ -42,8 +42,8 @@
 
       <view class="getHongbao">
         <form @submit="submitHongbao">
-          <input class="getHongbao__input" name="phone" type="number" :value="phone" maxlength="11" placeholder="请输入要领取最大红包的手机号码" />
-          <textarea class="getHongbao__textarea" name="url" :value="url" maxlength="-1" placeholder="请输入美团、饿了么拼手气红包链接（具体规则请访问网页版查看相关的教程）" />
+          <input class="getHongbao__input" name="phone" type="number" :value="phone" maxlength="11" placeholder="领红包的手机号码（留空可领到最大前一个）" />
+          <textarea class="getHongbao__textarea" name="url" :value="url" maxlength="-1" placeholder="美团、饿了么拼手气红包链接（具体规则请访问网页版查看相关的教程）" />
           <button :class="['getHongbao__get', {'getHongbao__get--disabled': !enableHongbao}]" form-type="submit">
             {{enableHongbao ? '领取手气最佳红包' : '正在领取红包...'}}
           </button>
@@ -141,10 +141,10 @@ export default {
         return;
       }
       const {url, phone} = event.target.value;
-      if (!url || !phone) {
-        return wx.showModal({
-          content: '请将信息填写完整',
-          showCancel: false
+      if (!url) {
+        return wx.showToast({
+          title: '请填写红包链接',
+          icon: 'none'
         });
       }
       try {
@@ -198,10 +198,9 @@ export default {
         await hongbao.logout();
         this.view = 'normal';
       } catch (e) {
-        wx.showModal({
-          title: '退出登录出错',
-          content: e.message,
-          showCancel: false
+        wx.showToast({
+          title: e.message,
+          icon: 'none'
         });
       }
     }
