@@ -17,7 +17,7 @@
         </swiper-item>
       </swiper>
 
-      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.7.0</view>
+      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.7.1</view>
 
       <view class="breadcrumb">
         <view class="breadcrumb__item" @click="clickAlipay">
@@ -42,8 +42,8 @@
 
       <view class="getHongbao">
         <form @submit="submitHongbao">
-          <input class="getHongbao__input" name="phone" type="number" :value="phone" maxlength="11" placeholder="领红包的手机号码（留空可领到最大前一个）" />
-          <textarea class="getHongbao__textarea" name="url" :value="url" maxlength="-1" placeholder="美团、饿了么拼手气红包链接（具体规则请访问网页版查看相关的教程）" />
+          <input class="getHongbao__input" name="phone" type="number" v-model="phone" maxlength="11" placeholder="领红包的手机号码（留空可领到最大前一个）" />
+          <textarea class="getHongbao__textarea" name="url" v-model="url" maxlength="-1" placeholder="美团、饿了么拼手气红包链接（具体规则请访问网页版查看相关的教程）" />
           <button :class="['getHongbao__get', {'getHongbao__get--disabled': !enableHongbao}]" form-type="submit">
             {{enableHongbao ? '领取手气最佳红包' : '正在领取红包...'}}
           </button>
@@ -140,7 +140,7 @@ export default {
       if (!this.enableHongbao) {
         return;
       }
-      const {url, phone} = event.target.value;
+      const {url, phone} = this;
       if (!url) {
         return wx.showToast({
           title: '请填写红包链接',
@@ -151,7 +151,6 @@ export default {
         await storage.setData('phone', phone);
         this.enableHongbao = false;
         this.url = '';
-        this.phone = phone;
         const data = await hongbao.userReceiving({url, phone});
         this.userReceiving.unshift(data);
         await this.refreshUserReceiving();
