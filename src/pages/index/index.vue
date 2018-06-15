@@ -17,7 +17,7 @@
         </swiper-item>
       </swiper>
 
-      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.7.1</view>
+      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.7.2</view>
 
       <view class="breadcrumb">
         <view class="breadcrumb__item" @click="clickAlipay">

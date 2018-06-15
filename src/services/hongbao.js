@@ -17,7 +17,7 @@ function handleReceiving(data) {
     data = [data];
   }
   data.forEach(item => {
-    const date = new Date(item.gmtModified);
+    const date = new Date(item.gmtModified || item.gmtCreate);
     item._gmtModified = `${add0(date.getMonth() + 1)}-${add0(date.getDate())} ${add0(date.getHours())}:${add0(
       date.getMinutes()
     )}:${add0(date.getSeconds())}`;
