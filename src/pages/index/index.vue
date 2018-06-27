@@ -17,7 +17,7 @@
         </swiper-item>
       </swiper>
 
-      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.8.0</view>
+      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.8.1</view>
 
       <view class="breadcrumb">
         <view class="breadcrumb__item" @click="clickAlipay">
@@ -183,7 +183,7 @@ export default {
       }
     },
     async clickAlipay() {
-      await clipboard.setData('c7XYed92oO');
+      await clipboard.setData('aRhixt096d');
     },
     async clickQQGroup() {
       await clipboard.setData('617166836');
