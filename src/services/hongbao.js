@@ -23,6 +23,9 @@ function handleReceiving(data) {
     )}:${add0(date.getSeconds())}`;
     item._phone = item.phone.replace(/(\d{3})(\d{4})(\d{3})/, '$1****$3');
     item._price = item.price || 0;
+    item._color = {0: '', 1: '#5bab60', 2: '#dd2323'}[
+      !item.phone && /已领取到最佳前一个红包/.test(item.message) ? 1 : item.status
+    ];
   });
   return notArray ? data[0] : data.slice(0, 5);
 }
@@ -73,15 +76,8 @@ export default {
     const data = await this.request({url: `/user/receiving/${receivingId}`});
     return handleReceiving(data);
   },
-  async userCookie() {
-    const data = await this.request({url: '/user/cookie'});
-    return {
-      meituan: data.filter(item => item.application === 0),
-      ele: data.filter(item => item.application === 1)
-    };
-  },
   userAvailable() {
-    return this.request({url: '/user/available'});
+    return this.request({url: '/user/number'});
   },
   async notice() {
     let data = await this.request({url: '/notice.json'});

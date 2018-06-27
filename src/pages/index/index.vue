@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <block>
     <view class="loading" v-if="view === 'loading'">
       正在加载...长时间没有响应请下拉刷新
     </view>
@@ -17,7 +17,7 @@
         </swiper-item>
       </swiper>
 
-      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.7.2</view>
+      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.8.0</view>
 
       <view class="breadcrumb">
         <view class="breadcrumb__item" @click="clickAlipay">
@@ -30,9 +30,8 @@
         </view>
       </view>
 
-      <view class="alert alert--info" v-if="userAvailable && userCookie">
-        今日剩余：美团 {{userAvailable.meituan}}/{{userCookie.meituan.length * 5}} 次，饿了么
-        {{userAvailable.ele}}/{{userCookie.ele.length * 5}} 次
+      <view class="alert alert--info" v-if="userAvailable">
+        今日剩余：美团 {{userAvailable.meituan.available}}/{{userAvailable.meituan.total}} 次，饿了么 {{userAvailable.ele.available}}/{{userAvailable.ele.total}} 次
       </view>
       <view class="alert alert--info" v-else>
         数据加载中，长时间没有响应请下拉刷新
@@ -55,8 +54,8 @@
             <view class="getHongbao__itemTime">{{item._gmtModified}}</view>
             <view class="getHongbao__itemPrice">{{item.status === 1 ? item._price : 0}}</view>
             <view class="getHongbao__itemOther">
-              <view class="getHongbao__itemPhone">{{item.application === 0 ? '美' : '饿'}} {{item._phone}}</view>
-              <view :class="['getHongbao__itemMessage', {'getHongbao__itemMessage--success': item.status === 1}, {'getHongbao__itemMessage--fail': item.status !== 1 && item.status !== 0}]">
+              <view class="getHongbao__itemPhone">[{{item.application === 0 ? '美' : '饿'}}] {{item._phone || '未填手机号'}}</view>
+              <view class="getHongbao__itemMessage" :style="{color: item._color}">
                 {{item.status === 0 ? '正在领取红包...' : item.status === 1 ? '领取成功（请以实际到账金额为准）': item.message}}
               </view>
             </view>
@@ -72,7 +71,7 @@
         </view>
       </view>
     </view>
-  </view>
+  </block>
 </template>
 
 <script>
@@ -127,7 +126,7 @@ export default {
         this.user = await hongbao.user();
         this.view = 'hongbao';
         // 各自请求而不是 Promise.all()，这样不会因为一个失败或很慢，导致全部显示不出来
-        ['zhuangbi', 'notice', 'userAvailable', 'userCookie', 'userReceiving'].forEach(key => {
+        ['zhuangbi', 'notice', 'userAvailable', 'userReceiving'].forEach(key => {
           hongbao[key]().then(data => (this[key] = data));
         });
       } catch (e) {
@@ -294,8 +293,8 @@ textarea {
   }
 
   &--notice {
-    border: 1px solid #ffe58f;
-    background-color: #fffbe6;
+    border: 2px dashed #d9d9d9;
+    background-color: #fff;
   }
 }
 
@@ -368,16 +367,6 @@ textarea {
   &__itemOther {
     text-align: left;
     flex: 1;
-  }
-
-  &__itemMessage {
-    &--success {
-      color: rgb(91, 171, 96);
-    }
-
-    &--fail {
-      color: rgb(221, 35, 35);
-    }
   }
 }
 
