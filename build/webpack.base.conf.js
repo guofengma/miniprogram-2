@@ -41,7 +41,9 @@ module.exports = {
       vue: 'mpvue',
       '@': resolve('src')
     },
-    symlinks: false
+    symlinks: false,
+    aliasFields: ['mpvue', 'weapp', 'browser'],
+    mainFields: ['browser', 'module', 'main']
   },
   module: {
     rules: [
@@ -76,7 +78,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('media/[name]].[ext]')
+          name: utils.assetsPath('media/[name].[ext]')
         }
       },
       {

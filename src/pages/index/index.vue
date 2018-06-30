@@ -17,7 +17,7 @@
         </swiper-item>
       </swiper>
 
-      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.8.1</view>
+      <view class="hello">您好 {{user.mail}} (uid: {{user.id}}) v0.8.2</view>
 
       <view class="breadcrumb">
         <view class="breadcrumb__item" @click="clickAlipay">
@@ -161,7 +161,7 @@ export default {
     async refreshUserReceiving() {
       const data = await hongbao.userRefresh(this.userReceiving[0].id);
       if (data.status === 0) {
-        await timeout(5000);
+        await timeout(1000);
         await this.refreshUserReceiving();
       } else {
         this.userReceiving[0] = data;
@@ -293,7 +293,7 @@ textarea {
   }
 
   &--notice {
-    border: 2px dashed #d9d9d9;
+    border: 1px dashed #999;
     background-color: #fff;
   }
 }
