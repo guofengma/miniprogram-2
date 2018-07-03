@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import * as wxp from '../utils/wxp';
 import {Notice, User, Zhuangbi} from '../api';
-import storage from '../../src2/utils/storage';
 import {getRecord} from '../api/user';
 
 Vue.use(Vuex);
