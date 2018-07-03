@@ -9,7 +9,7 @@ Vue.mixin({
   onShareAppMessage() {
     return {
       title: '一键最佳',
-      path: '/pages/home/main',
+      path: '/pages/login/main',
       imageUrl: this.picture[0]
     };
   },
