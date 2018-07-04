@@ -67,7 +67,7 @@ export default {
 
 <style lang="less" scoped>
 .wrap {
-  padding: 20px 15px;
+  padding: 15px;
 }
 
 .zhuangbi {
@@ -94,7 +94,6 @@ export default {
   }
 
   view {
-    line-height: 1.5;
     margin-bottom: 8px;
   }
 }

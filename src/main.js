@@ -17,7 +17,7 @@ export default {
       backgroundTextStyle: 'dark',
       backgroundColor: '#fff',
       navigationBarBackgroundColor: '#d9534f',
-      navigationBarTitleText: '一键最佳',
+      navigationBarTitleText: '一键最佳 mtdhb.com',
       navigationBarTextStyle: '#333'
     },
     tabBar: {
@@ -39,10 +39,16 @@ export default {
           selectedIconPath: '/static/tab11.png'
         },
         {
-          text: '排行',
-          pagePath: 'pages/rank/main',
+          text: '贡献',
+          pagePath: 'pages/contribute/main',
           iconPath: '/static/tab20.png',
           selectedIconPath: '/static/tab21.png'
+        },
+        {
+          text: '排行',
+          pagePath: 'pages/rank/main',
+          iconPath: '/static/tab30.png',
+          selectedIconPath: '/static/tab31.png'
         }
       ]
     }

@@ -4,7 +4,7 @@
       <view class="label">领最大红包的手机号码</view>
       <input class="input" name="phone" type="number" v-model="phone" :maxlength="11" placeholder="留空支持领到最大前一个红包" />
       <view class="label">美团、饿了么拼手气红包链接</view>
-      <textarea class="textarea" name="url" v-model="url" maxlength="-1" placeholder="不懂怎么复制链接？请到页面底部查看方法" />
+      <textarea class="textarea" name="url" v-model="url" :maxlength="-1" placeholder="不懂怎么复制链接？请到页面底部查看方法" />
       <button :class="['get', {'get--disabled': !hongbaoEnable}]" form-type="submit">
         {{hongbaoEnable ? '领取手气最佳红包' : '正在领取红包...'}}
       </button>
@@ -61,7 +61,7 @@ export default {
 
 <style lang="less" scoped>
 .wrap {
-  padding: 10px 15px;
+  padding: 0 15px;
 }
 
 .rules {
@@ -70,14 +70,13 @@ export default {
   border-top: 1px dashed #ccc;
 
   .rule {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 
     .title {
       font-weight: bold;
     }
 
     view {
-      line-height: 1.5;
       margin-bottom: 8px;
     }
   }
@@ -100,7 +99,6 @@ export default {
 
 .textarea {
   padding: 12px;
-  line-height: 1.5;
   margin: 15px 0;
 }
 
@@ -130,6 +128,7 @@ export default {
   border-radius: 4px;
   line-height: 1;
   margin-bottom: 15px;
+  font-size: 15px;
 
   &--disabled {
     opacity: 0.7;

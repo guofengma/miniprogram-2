@@ -1,5 +1,6 @@
 <template>
   <view class="wrap">
+    <view class="tip">排行数据半小时更新一次</view>
     <view class="radios">
       贡献排行榜：
       <radio-group @change="toggleRankChecked">
@@ -44,6 +45,11 @@ export default {
 <style lang="less" scoped>
 .wrap {
   padding: 10px 15px;
+}
+
+.tip {
+  color: #d9534f;
+  margin-bottom: 8px;
 }
 
 .radios {

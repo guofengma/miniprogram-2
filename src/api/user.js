@@ -1,12 +1,19 @@
 import miment from 'miment';
 import {request} from './request';
 
+export const addCookie = data => request({url: '/user/cookie', method: 'POST', data});
+
 export const getInfo = () => request({url: '/user'});
 
 export const getAvailable = () => request({url: '/user/number'});
 
-export const getRecordList = async data => {
-  const res = await request(data ? {url: '/user/receiving', method: 'POST', data} : {url: '/user/receiving'});
+export const getRecordList = async () => {
+  const res = await request({url: '/user/receiving'});
+  return handleRecord(res);
+};
+
+export const getHongbao = async data => {
+  const res = await request({url: '/user/receiving', method: 'POST', data});
   return handleRecord(res);
 };
 
