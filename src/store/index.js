@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import * as wxp from '../utils/wxp';
-import {Notice, User, Zhuangbi} from '../api';
+import {Notice, Rank, User, Zhuangbi} from '../api';
 import {getRecord} from '../api/user';
 
 Vue.use(Vuex);
@@ -25,9 +25,24 @@ export default new Vuex.Store({
     available: null,
     notice: [],
     hongbaoEnable: true,
-    record: []
+    record: [],
+    rankChecked: 0,
+    rank: {
+      meituan: [],
+      ele: []
+    }
   },
   actions: {
+    async getRankData() {
+      try {
+        wx.showNavigationBarLoading();
+        this.commit('setRank', await Rank.getList());
+      } catch (e) {
+        this.dispatch('showError', e);
+      } finally {
+        wx.hideNavigationBarLoading();
+      }
+    },
     async getHongbao({state}, event) {
       if (!state.hongbaoEnable) {
         return;
@@ -178,6 +193,12 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setRank(state, payload) {
+      state.rank = payload;
+    },
+    toggleRankChecked(state) {
+      state.rankChecked = state.rankChecked === 0 ? 1 : 0;
+    },
     updateHongbaoForm(state, {url, phone}) {
       state.url = url;
       state.phone = phone;

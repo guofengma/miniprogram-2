@@ -1,5 +1,6 @@
 import * as Notice from './notice';
+import * as Rank from './rank';
 import * as User from './user';
 import * as Zhuangbi from './zhuangbi';
 
-export {Notice, User, Zhuangbi};
+export {Notice, Rank, User, Zhuangbi};

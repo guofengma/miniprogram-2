@@ -37,6 +37,12 @@ export default {
           pagePath: 'pages/hongbao/main',
           iconPath: '/static/tab10.png',
           selectedIconPath: '/static/tab11.png'
+        },
+        {
+          text: '排行',
+          pagePath: 'pages/rank/main',
+          iconPath: '/static/tab20.png',
+          selectedIconPath: '/static/tab21.png'
         }
       ]
     }
