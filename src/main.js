@@ -25,7 +25,8 @@ export default {
       backgroundColor: '#fff',
       navigationBarBackgroundColor: '#d9534f',
       navigationBarTitleText: '一键最佳 mtdhb.com',
-      navigationBarTextStyle: '#333'
+      navigationBarTextStyle: '#333',
+      enablePullDownRefresh: true
     },
     tabBar: {
       color: '#fff',

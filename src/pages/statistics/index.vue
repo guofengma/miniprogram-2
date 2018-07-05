@@ -37,6 +37,10 @@ export default {
   mounted() {
     this.getStatisticsData();
   },
+  async onPullDownRefresh() {
+    await this.getStatisticsData();
+    wx.stopPullDownRefresh();
+  },
   computed: mapState(['statistics', 'statisticsChecked']),
   methods: {
     ...mapActions(['getStatisticsData']),

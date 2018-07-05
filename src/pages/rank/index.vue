@@ -34,6 +34,10 @@ export default {
   mounted() {
     this.getRankData();
   },
+  async onPullDownRefresh() {
+    await this.getRankData();
+    wx.stopPullDownRefresh();
+  },
   computed: mapState(['rank', 'rankChecked']),
   methods: {
     ...mapActions(['getRankData']),

@@ -64,6 +64,10 @@ export default {
   mounted() {
     this.getHomeData();
   },
+  async onPullDownRefresh() {
+    await this.getHomeData();
+    wx.stopPullDownRefresh();
+  },
   computed: mapState(['user', 'zhuangbi', 'available', 'alipay', 'qqgroup', 'notice']),
   methods: mapActions(['getHomeData', 'copyData', 'logout'])
 };

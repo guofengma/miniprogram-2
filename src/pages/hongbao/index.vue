@@ -48,8 +48,13 @@ import {mapActions, mapState, mapMutations} from 'vuex';
 
 export default {
   mounted() {
-    this.setHongbaoEnable(true); // 防止上次意外失败，下次进来按钮还是不可点的状态
+    this.setHongbaoEnable(true);
     this.getHongbaoData();
+  },
+  async onPullDownRefresh() {
+    this.setHongbaoEnable(true);
+    await this.getHongbaoData();
+    wx.stopPullDownRefresh();
   },
   computed: mapState(['url', 'phone', 'record', 'hongbaoEnable']),
   methods: {
