@@ -12,7 +12,14 @@ app.$mount();
 
 export default {
   config: {
-    pages: ['^pages/login/main', 'pages/home/main'],
+    pages: [
+      'pages/contribute/main',
+      'pages/home/main',
+      'pages/hongbao/main',
+      '^pages/login/main',
+      'pages/rank/main',
+      'pages/statistics/main'
+    ],
     window: {
       backgroundTextStyle: 'dark',
       backgroundColor: '#fff',
@@ -49,6 +56,12 @@ export default {
           pagePath: 'pages/rank/main',
           iconPath: '/static/tab30.png',
           selectedIconPath: '/static/tab31.png'
+        },
+        {
+          text: '统计',
+          pagePath: 'pages/statistics/main',
+          iconPath: '/static/tab40.png',
+          selectedIconPath: '/static/tab41.png'
         }
       ]
     }

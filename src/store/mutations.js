@@ -1,4 +1,7 @@
 export default {
+  setStatistics(state, payload) {
+    state.statistics = payload;
+  },
   setCookie(state, payload) {
     state.cookie = payload;
   },
@@ -7,6 +10,9 @@ export default {
   },
   setContributeEnable(state, payload) {
     state.contributeEnable = payload;
+  },
+  toggleStatisticsChecked(state) {
+    state.statisticsChecked = state.statisticsChecked === 0 ? 1 : 0;
   },
   toggleRankChecked(state) {
     state.rankChecked = state.rankChecked === 0 ? 1 : 0;

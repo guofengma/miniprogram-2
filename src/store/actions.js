@@ -1,7 +1,17 @@
-import {Notice, Rank, User, Zhuangbi} from '../api';
+import {Notice, Rank, User, Zhuangbi, Trend} from '../api';
 import * as wxp from '../utils/wxp';
 
 export default {
+  async getStatisticsData() {
+    try {
+      wx.showNavigationBarLoading();
+      this.commit('setStatistics', await Trend.getList());
+    } catch (e) {
+      this.dispatch('showError', e);
+    } finally {
+      wx.hideNavigationBarLoading();
+    }
+  },
   async contributeCookie({state}, event) {
     if (!state.contributeEnable) {
       return;

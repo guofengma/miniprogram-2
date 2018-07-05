@@ -22,5 +22,10 @@ export default {
     ele: []
   },
   contributeEnable: true,
-  cookie: ''
+  cookie: '',
+  statistics: {
+    meituan: [],
+    ele: []
+  },
+  statisticsChecked: 0
 };
