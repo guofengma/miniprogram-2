@@ -1,8 +1,8 @@
 <template>
   <view class="wrap">
-    <view class="tip">排行数据半小时更新一次</view>
+    <view class="tip">贡献小号数量最多的前 100 名用户</view>
     <view class="radios">
-      贡献排行榜：
+      请选择平台：
       <radio-group @change="toggleRankChecked">
         <label>
           <radio :value="0" :checked="rankChecked === 0" color="#d9534f" />美团
@@ -23,6 +23,9 @@
         <view>{{item.userId}}</view>
         <view>{{item.count}}</view>
       </view>
+    </view>
+    <view class="rules">
+      <view class="rule">排行榜数据每半小时更新一次</view>
     </view>
   </view>
 </template>
@@ -55,6 +58,10 @@ export default {
   font-weight: bold;
 }
 
+.rule {
+  margin-bottom: 15px;
+}
+
 .radios {
   display: flex;
   align-items: center;
@@ -63,6 +70,10 @@ export default {
   label {
     margin-right: 10px;
   }
+}
+
+.ranks {
+  padding-bottom: 15px;
 }
 
 .rank {

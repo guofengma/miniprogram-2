@@ -49,6 +49,5 @@ page {
 image {
   width: 100%;
   display: block;
-  background: #ccc;
 }
 </style>

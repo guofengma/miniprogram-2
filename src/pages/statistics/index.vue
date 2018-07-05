@@ -1,8 +1,8 @@
 <template>
   <view class="wrap">
-    <view class="tip">成功领取最大红包的总金额</view>
+    <view class="tip">近七天成功领取最大红包的数据</view>
     <view class="radios">
-      大红包统计：
+      请选择平台：
       <radio-group @change="toggleStatisticsChecked">
         <label>
           <radio :value="0" :checked="statisticsChecked === 0" color="#d9534f" />美团
@@ -26,7 +26,10 @@
         <view>{{item._avg}}</view>
       </view>
     </view>
-    <view>因为现在支持了领取到最佳前一个, 所以那部分领取不在统计之内</view>
+    <view class="rules">
+      <view class="rule">1. 现在支持了领取到最佳前一个, 那部分领取金额不在统计之内</view>
+      <view class="rule">2. 统计数据每半小时更新一次</view>
+    </view>
   </view>
 </template>
 
@@ -67,6 +70,10 @@ export default {
   label {
     margin-right: 10px;
   }
+}
+
+.rule {
+  margin-bottom: 15px;
 }
 
 .list {

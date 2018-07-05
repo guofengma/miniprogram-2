@@ -104,7 +104,7 @@ export default {
     height: 50px;
     border-radius: 50%;
     overflow: hidden;
-    background: #ccc;
+    background: #e6e6e6;
     margin-right: 10px;
   }
 
@@ -201,6 +201,7 @@ export default {
     height: 120px;
     display: block;
     margin: 5px auto 0;
+    background: #e6e6e6;
   }
 }
 </style>
