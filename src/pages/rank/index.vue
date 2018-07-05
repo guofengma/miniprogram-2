@@ -48,14 +48,13 @@ export default {
 }
 
 .tip {
-  color: #d9534f;
-  margin-bottom: 8px;
+  font-weight: bold;
 }
 
 .radios {
   display: flex;
   align-items: center;
-  padding: 5px 0;
+  margin: 8px 0;
 
   label {
     margin-right: 10px;

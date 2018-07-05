@@ -15,8 +15,11 @@ export default {
   mounted() {
     this.goHome();
   },
+  onShow() {
+    this.loginByClipboard();
+  },
   computed: mapState(['token', 'picture']),
-  methods: mapActions(['goHome', 'loginByScan'])
+  methods: mapActions(['goHome', 'loginByScan', 'loginByClipboard'])
 };
 </script>
 

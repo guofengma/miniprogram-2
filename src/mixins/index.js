@@ -1,17 +1,13 @@
 import Vue from 'vue';
-import {mapState, mapActions} from 'vuex';
+import {mapState} from 'vuex';
 
 Vue.mixin({
   computed: mapState(['picture']),
-  onShow() {
-    this.loginByClipboard();
-  },
   onShareAppMessage() {
     return {
-      title: '一键最佳',
+      title: '一键最佳 mtdhb.com',
       path: '/pages/login/main',
-      imageUrl: this.picture[0]
+      imageUrl: this.picture[1]
     };
-  },
-  methods: mapActions(['loginByClipboard'])
+  }
 });

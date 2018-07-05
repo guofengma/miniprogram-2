@@ -179,6 +179,7 @@ export default {
       this.dispatch('goHome');
     } catch (e) {
       this.commit('setToken', null);
+      this.commit('setUser', null);
       await wxp.showModal({
         title: '登录失败',
         content: e.message,

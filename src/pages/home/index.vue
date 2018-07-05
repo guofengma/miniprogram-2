@@ -8,8 +8,6 @@
       </swiper-item>
     </swiper>
 
-    <view class="hello" v-if="user">您好 {{user.mail}} (uid: {{user.id}})</view>
-
     <view class="breadcrumb">
       <view class="breadcrumb__item" @click="copyData(alipay)">
         复制支付宝红包码
@@ -21,22 +19,17 @@
       </view>
     </view>
 
-    <view class="alert alert--info" v-if="available">
-      美团 {{available.meituan.available}}/{{available.meituan.total}} 次，饿了么 {{available.ele.available}}/{{available.ele.total}} 次
+    <view class="profile" v-if="user && available">
+      <view class="profile__photo">
+        <open-data type="userAvatarUrl" />
+      </view>
+      <view class="profile__info">
+        <view class="profile__email">{{user.mail}} (uid: {{user.id}})</view>
+        <view>美团 <text>{{available.meituan.available}}/{{available.meituan.total}}</text> 饿了么 <text>{{available.ele.available}}/{{available.ele.total}}</text></view>
+      </view>
     </view>
 
     <view class="alert alert--notice" v-for="(item, index) in notice" :key="index">{{item}}</view>
-
-    <view class="joinGroup">
-      <view class="joinGroup__left">
-        <image class="joinGroup__wxQrcode" mode="aspectFill" src="/static/wechat.png" />
-      </view>
-      <view class="joinGroup__right">
-        <view>扫码加入微信群</view>
-        <view class="joinGroup__qq" @click="copyData(qqgroup)">复制 QQ 群号 {{qqgroup}}</view>
-        <view>更多功能，敬请期待</view>
-      </view>
-    </view>
 
     <view class="rules">
       <view class="title">领取之前请先阅读规则</view>
@@ -50,6 +43,17 @@
       <view>8. 特别注意，无法领取差一个就是大红包的情况。例如：第七个是最大红包，已经有六个人领了，此时不要使用我们的领取功能。</view>
       <view>9. 我们不能保证 100% 领取成功，会有意外情况，不喜勿用。欢迎提 issue 或者加群反馈给我们，我们也在不断修复问题。</view>
     </view>
+
+    <view class="joinGroup">
+      <view class="joinGroup__left">
+        <image class="joinGroup__wxQrcode" mode="aspectFill" src="/static/wechat.png" />
+      </view>
+      <view class="joinGroup__right">
+        <view>扫码加入微信群</view>
+        <view class="joinGroup__qq" @click="copyData(qqgroup)">复制 QQ 群号 {{qqgroup}}</view>
+        <view>更多功能，敬请期待</view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -60,7 +64,7 @@ export default {
   mounted() {
     this.getHomeData();
   },
-  computed: mapState(['user', 'zhuangbi', 'available', 'alipay', 'qqgroup', 'notice', 'website']),
+  computed: mapState(['user', 'zhuangbi', 'available', 'alipay', 'qqgroup', 'notice']),
   methods: mapActions(['getHomeData', 'copyData', 'logout'])
 };
 </script>
@@ -77,17 +81,46 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 10px;
 
   &__text {
     color: #d9534f;
   }
 }
 
-.rules {
-  margin-top: 20px;
-  padding-top: 10px;
+.profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 10px 0;
   border-top: 1px dashed #ccc;
+
+  &__photo {
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #ccc;
+    margin-right: 10px;
+  }
+
+  &__info {
+    white-space: nowrap;
+
+    text {
+      color: #d9534f;
+    }
+  }
+
+  &__email {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+}
+
+.rules {
+  border-bottom: 1px dashed #ccc;
+  margin-bottom: 10px;
 
   .title {
     font-weight: bold;
@@ -103,20 +136,14 @@ export default {
   font-weight: bold;
 }
 
-.website {
-  text-align: center;
-  margin-bottom: 15px;
-  color: #40a9ff;
-}
-
 .breadcrumb {
   display: flex;
   align-items: center;
 
   &__item {
     position: relative;
-    color: #40a9ff;
     padding: 8px 0;
+    color: #40a9ff;
   }
 
   &__split {
@@ -139,14 +166,9 @@ export default {
   border-radius: 4px;
   padding: 8px 15px;
 
-  &--info {
+  &--notice {
     border: 1px solid #91d5ff;
     background-color: #e6f7ff;
-  }
-
-  &--notice {
-    border: 1px dashed #999;
-    background-color: #fff;
   }
 }
 

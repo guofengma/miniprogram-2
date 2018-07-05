@@ -1,12 +1,17 @@
 <template>
   <view class="wrap">
-    <view class="tip">因为美团凉了，目前仅支持贡献饿了么 cookie。不懂如何贡献？或者想查看已贡献的 cookie 列表？请访问网页版</view>
+    <view class="tip">目前仅支持贡献饿了么 cookie</view>
     <form @submit="contributeCookie">
       <textarea class="textarea" name="cookie" v-model="cookie" :maxlength="-1" placeholder="请输入微信或 QQ 小号的 cookie（与手机号、饿了么账号无关）" />
       <button :class="['get', {'get--disabled': !contributeEnable}]" form-type="submit">
         {{contributeEnable ? '贡献小号 cookie' : '正在贡献...'}}
       </button>
     </form>
+    <view class="rule">
+      <view>1. 不懂如何贡献？请访问网页版查看相关教程</view>
+      <view>2. 想查看已贡献的 cookie 列表？请访问网页版</view>
+      <view>3. 手机抓包 App 推荐：安卓（Packet Capture），苹果（Stream），无需 Root / 越狱</view>
+    </view>
   </view>
 </template>
 
@@ -30,19 +35,12 @@ export default {
   padding: 10px 15px;
 }
 
-.cookie {
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
-  text-align: center;
-  border-bottom: 1px dotted #ccc;
-
-  &--first {
-    font-weight: bold;
-  }
+.rule {
+  border-top: 1px dashed #ccc;
+  padding-top: 10px;
 
   view {
-    flex: 1;
+    margin-bottom: 8px;
   }
 }
 
@@ -73,7 +71,7 @@ export default {
 }
 
 .tip {
-  color: #d9534f;
+  font-weight: bold;
 }
 
 .radios {
