@@ -33,9 +33,9 @@ export default {
       this.commit('setAvailable', await User.getAvailable());
     } catch (e) {
       this.dispatch('showError', e);
-      this.commit('setContributeEnable', true);
     } finally {
       this.commit('setCookie', '');
+      this.commit('setContributeEnable', true);
     }
   },
   async getRankData() {

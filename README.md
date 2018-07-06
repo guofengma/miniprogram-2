@@ -6,16 +6,29 @@
 
 <img width="200" src="miniprogram.jpg" />
 
+自己申请小程序搭建本项目的，需要在微信小程序后台设置 request 域名 `https://mtdhb.z.xxooweb.com`
+
+## 环境
+
+Node.js 9.x
+
+```bash
+npm i yarn -g
+```
+
 ## 开发
 
 ```bash
-npm i
-npm run dev
+yarn
+yarn dev
 ```
 
-使用微信开发者工具打开 dist 目录
+使用微信开发者工具打开 `dist/` 目录
 
-## 分支
+## 生产
 
-- master - 当前生产版本 1.x
-- 0.x - 旧版
+上线之前执行以下命令压缩代码，再上传腾讯审核
+
+```bash
+yarn build
+```
