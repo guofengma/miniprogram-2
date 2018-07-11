@@ -9,6 +9,9 @@
         {{hongbaoEnable ? '领取手气最佳红包' : '正在领取红包...'}}
       </button>
     </form>
+
+    <ad unit-id="adunit-f403558c555f6c0c"></ad>
+
     <view class="list">
       <view class="item" v-for="(item, index) in record" :key="index">
         <view class="time">{{item._gmtModified}}</view>
@@ -110,6 +113,10 @@ export default {
 .label {
   margin: 10px 0;
   font-weight: bold;
+}
+
+.list {
+  margin-top: 10px;
 }
 
 .item {

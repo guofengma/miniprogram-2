@@ -12,6 +12,9 @@
         </label>
       </radio-group>
     </view>
+
+    <ad unit-id="adunit-962de117f26e0589"></ad>
+
     <view class="ranks">
       <view class="rank rank--first">
         <view>排名</view>

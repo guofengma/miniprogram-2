@@ -12,6 +12,9 @@
         </label>
       </radio-group>
     </view>
+
+    <ad unit-id="adunit-849cf356f70fa5fc"></ad>
+
     <view class="list">
       <view class="item item--first">
         <view>日期</view>

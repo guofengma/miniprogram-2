@@ -7,6 +7,9 @@
         {{contributeEnable ? '贡献小号 cookie' : '正在贡献...'}}
       </button>
     </form>
+
+    <ad unit-id="adunit-422837db2f2b0070"></ad>
+
     <view class="rule">
       <view>1. 不懂如何贡献？请访问网页版查看相关教程</view>
       <view>2. 想查看已贡献的 cookie 列表？请访问网页版</view>
@@ -38,6 +41,7 @@ export default {
 .rule {
   border-top: 1px dashed #ccc;
   padding-top: 10px;
+  margin-top: 10px;
 
   view {
     margin-bottom: 8px;

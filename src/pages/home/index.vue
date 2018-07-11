@@ -31,6 +31,8 @@
 
     <view class="alert alert--notice" v-for="(item, index) in notice" :key="index">{{item}}</view>
 
+    <ad unit-id="adunit-c5e9a9c7e3781ff2"></ad>
+
     <view class="rules">
       <view class="title">领取之前请先阅读规则</view>
       <view>1. 领取一个 “第七个领取的人红包最大” 拼手气红包，最多需要 7 次可消耗次数。以此类推：第 N 个最大，最多需要消耗 N 次。如果该红包之前已被他人领取了 M 次，则消耗 N - M 次。</view>
@@ -124,7 +126,7 @@ export default {
 
 .rules {
   border-bottom: 1px dashed #ccc;
-  margin-bottom: 10px;
+  margin: 10px 0;
 
   .title {
     font-weight: bold;
