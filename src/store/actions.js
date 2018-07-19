@@ -118,9 +118,13 @@ export default {
       icon: 'none'
     });
   },
-  goLogin() {
+  clearData() {
     this.commit('setToken', null);
     this.commit('setUser', null);
+    localStorage.clear()
+  },
+  goLogin() {
+    this.dispatch('clearData');
     wx.reLaunch({url: '/pages/login/main'});
   },
   async goHome({state}) {
@@ -188,8 +192,7 @@ export default {
       this.commit('setUser', user);
       this.dispatch('goHome');
     } catch (e) {
-      this.commit('setToken', null);
-      this.commit('setUser', null);
+      this.dispatch('clearData');
       await wxp.showModal({
         title: '登录失败',
         content: e.message,
