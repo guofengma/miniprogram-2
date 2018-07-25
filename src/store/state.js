@@ -5,7 +5,6 @@ export default {
   url: '',
   phone: '',
   alipay: 'aRhixt096d',
-  qqgroup: '617166836',
   picture: [
     'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/03/04/ChMkJ1oJW4iIIAZJAAfcOXA1PHcAAiH8gHsUiYAB9xR139.jpg',
     'https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/03/04/ChMkJloJW36IGDpwAAd_V2iVa6wAAiH8gF1_xAAB39v037.jpg',

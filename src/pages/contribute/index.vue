@@ -35,7 +35,7 @@ export default {
 
 <style lang="less" scoped>
 .wrap {
-  padding: 10px 15px;
+  padding: 15px;
 }
 
 .rule {
@@ -45,6 +45,10 @@ export default {
 
   view {
     margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 

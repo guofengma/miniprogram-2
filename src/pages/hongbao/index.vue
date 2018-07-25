@@ -69,7 +69,8 @@ export default {
 
 <style lang="less" scoped>
 .wrap {
-  padding: 0 15px;
+  padding: 5px 15px;
+  overflow: auto;
 }
 
 .rules {

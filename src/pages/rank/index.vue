@@ -28,7 +28,7 @@
       </view>
     </view>
     <view class="rules">
-      <view class="rule">排行榜数据每半小时更新一次</view>
+      <view>排行榜数据每半小时更新一次</view>
     </view>
   </view>
 </template>
@@ -54,15 +54,11 @@ export default {
 
 <style lang="less" scoped>
 .wrap {
-  padding: 10px 15px;
+  padding: 15px;
 }
 
 .tip {
   font-weight: bold;
-}
-
-.rule {
-  margin-bottom: 15px;
 }
 
 .radios {

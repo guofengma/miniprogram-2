@@ -30,8 +30,8 @@
       </view>
     </view>
     <view class="rules">
-      <view class="rule">1. 现在支持了领取到最佳前一个, 那部分领取金额不在统计之内</view>
-      <view class="rule">2. 统计数据每半小时更新一次</view>
+      <view>1. 现在支持了领取到最佳前一个, 那部分领取金额不在统计之内</view>
+      <view>2. 统计数据每半小时更新一次</view>
     </view>
   </view>
 </template>
@@ -57,7 +57,7 @@ export default {
 
 <style lang="less" scoped>
 .wrap {
-  padding: 10px 15px;
+  padding: 15px;
 }
 
 .tip {
@@ -75,8 +75,14 @@ export default {
   }
 }
 
-.rule {
-  margin-bottom: 15px;
+.rules {
+  view {
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 .list {

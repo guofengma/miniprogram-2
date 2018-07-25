@@ -45,17 +45,6 @@
       <view>8. 特别注意，无法领取差一个就是大红包的情况。例如：第七个是最大红包，已经有六个人领了，此时不要使用我们的领取功能。</view>
       <view>9. 我们不能保证 100% 领取成功，会有意外情况，不喜勿用。欢迎提 issue 或者加群反馈给我们，我们也在不断修复问题。</view>
     </view>
-
-    <view class="joinGroup">
-      <view class="joinGroup__left">
-        <image class="joinGroup__wxQrcode" mode="aspectFill" src="/static/wechat.png" />
-      </view>
-      <view class="joinGroup__right">
-        <view>扫码加入微信群</view>
-        <view class="joinGroup__qq" @click="copyData(qqgroup)">复制 QQ 群号 {{qqgroup}}</view>
-        <view>更多功能，敬请期待</view>
-      </view>
-    </view>
   </view>
 </template>
 
@@ -70,7 +59,7 @@ export default {
     await this.getHomeData();
     wx.stopPullDownRefresh();
   },
-  computed: mapState(['user', 'zhuangbi', 'available', 'alipay', 'qqgroup', 'notice']),
+  computed: mapState(['user', 'zhuangbi', 'available', 'alipay', 'notice']),
   methods: mapActions(['getHomeData', 'copyData', 'logout'])
 };
 </script>
@@ -106,7 +95,7 @@ export default {
     height: 50px;
     border-radius: 50%;
     overflow: hidden;
-    background: #e6e6e6;
+    background: #d9534f;
     margin-right: 10px;
   }
 
@@ -125,8 +114,7 @@ export default {
 }
 
 .rules {
-  border-bottom: 1px dashed #ccc;
-  margin: 10px 0;
+  margin-top: 10px;
 
   .title {
     font-weight: bold;
@@ -134,6 +122,10 @@ export default {
 
   view {
     margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -175,35 +167,6 @@ export default {
   &--notice {
     border: 1px solid #91d5ff;
     background-color: #e6f7ff;
-  }
-}
-
-.joinGroup {
-  display: flex;
-
-  &__left {
-    padding-right: 10px;
-  }
-
-  &__right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  &__qq {
-    margin: 8px 0;
-    color: #40a9ff;
-  }
-
-  &__wxQrcode {
-    border-radius: 4px;
-    overflow: hidden;
-    width: 120px;
-    height: 120px;
-    display: block;
-    margin: 5px auto 0;
-    background: #e6e6e6;
   }
 }
 </style>
