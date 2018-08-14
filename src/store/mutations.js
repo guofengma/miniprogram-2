@@ -21,8 +21,16 @@ export default {
     state.url = url;
     state.phone = phone;
   },
+  addHistoryPhone(state, payload) {
+    state.historyPhone = state.historyPhone.filter(phone => phone !== payload);
+    state.historyPhone.unshift(payload);
+    state.historyPhone = state.historyPhone.slice(-100);
+  },
   setUrl(state, payload) {
     state.url = payload;
+  },
+  setPhone(state, payload) {
+    state.phone = payload;
   },
   updateFirstRecord(state, payload) {
     state.record[0] = payload;

@@ -26,5 +26,6 @@ export default {
     meituan: [],
     ele: []
   },
-  statisticsChecked: 0
+  statisticsChecked: 0,
+  historyPhone: []
 };

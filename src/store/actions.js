@@ -53,7 +53,7 @@ export default {
       return;
     }
     const {phone, url} = event.target.value;
-    // sync data
+    this.commit('addHistoryPhone', phone);
     this.commit('updateHongbaoForm', {phone, url});
     if (!url) {
       return wx.showToast({
@@ -121,7 +121,7 @@ export default {
   clearData() {
     this.commit('setToken', null);
     this.commit('setUser', null);
-    localStorage.clear()
+    localStorage.clear();
   },
   goLogin() {
     this.dispatch('clearData');

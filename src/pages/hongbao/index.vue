@@ -2,9 +2,15 @@
   <view class="wrap">
     <form @submit="getHongbao">
       <view class="label">领最大红包的手机号码</view>
-      <input class="input" name="phone" type="number" v-model="phone" :maxlength="11" placeholder="留空支持领到最大前一个红包" />
+      <view class="input">
+        <input name="phone" type="number" :value="phone" @input="inputPhone" :maxlength="11" placeholder="留空支持领到最大前一个红包" />
+        <view class="history" @click="showHistory">历史号码</view>
+        <picker class="history" @change="switchHistory" :value="historyIndex" :range="historyPhone">
+          历史号码
+        </picker>
+      </view>
       <view class="label">美团、饿了么拼手气红包链接</view>
-      <textarea class="textarea" name="url" v-model="url" :maxlength="-1" placeholder="不懂怎么复制链接？请到页面底部查看方法" />
+      <textarea class="textarea" name="url" :value="url" @input="inputUrl" :maxlength="-1" placeholder="不懂怎么复制链接？请到页面底部查看方法" />
       <button :class="['get', {'get--disabled': !hongbaoEnable}]" form-type="submit">
         {{hongbaoEnable ? '领取手气最佳红包' : '正在领取红包...'}}
       </button>
@@ -50,6 +56,7 @@
 import {mapActions, mapState, mapMutations} from 'vuex';
 
 export default {
+  data: () => ({historyIndex: 0}),
   mounted() {
     this.setHongbaoEnable(true);
     this.getHongbaoData();
@@ -59,10 +66,20 @@ export default {
     await this.getHongbaoData();
     wx.stopPullDownRefresh();
   },
-  computed: mapState(['url', 'phone', 'record', 'hongbaoEnable']),
+  computed: mapState(['url', 'phone', 'record', 'hongbaoEnable', 'historyPhone']),
   methods: {
     ...mapActions(['getHongbaoData', 'getHongbao', 'copyData']),
-    ...mapMutations(['setHongbaoEnable'])
+    ...mapMutations(['setHongbaoEnable', 'setPhone', 'setUrl']),
+    inputPhone(event) {
+      this.setPhone(event.target.value);
+    },
+    inputUrl(event) {
+      this.setUrl(event.target.value);
+    },
+    switchHistory(event) {
+      this.setPhone(this.historyPhone[event.target.value]);
+      this.historyIndex = 0;
+    }
   }
 };
 </script>
@@ -98,12 +115,30 @@ export default {
   border-radius: 4px;
   width: 100%;
   color: #333;
+  position: relative;
+  overflow: hidden;
 }
 
 .input {
-  line-height: 1;
-  height: 40px;
-  padding: 0 12px;
+  input {
+    line-height: 1;
+    height: 40px;
+    padding: 0 12px;
+    padding-right: 90px;
+  }
+
+  .history {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-left: 1px solid #e3e3e3;
+  }
 }
 
 .textarea {
