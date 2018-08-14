@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import './utils/update';
 import App from './app';
 import store from './store';
 import './mixins';

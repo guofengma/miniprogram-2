@@ -24,7 +24,7 @@ export default {
   addHistoryPhone(state, payload) {
     state.historyPhone = state.historyPhone.filter(phone => phone !== payload);
     state.historyPhone.unshift(payload);
-    state.historyPhone = state.historyPhone.slice(-100);
+    state.historyPhone = state.historyPhone.slice(0, 100);
   },
   setUrl(state, payload) {
     state.url = payload;
