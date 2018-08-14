@@ -121,7 +121,7 @@ export default {
   clearData() {
     this.commit('setToken', null);
     this.commit('setUser', null);
-    localStorage.clear();
+    wx.clearStorageSync();
   },
   goLogin() {
     this.dispatch('clearData');
