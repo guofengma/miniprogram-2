@@ -23,7 +23,9 @@
         <view class="time">{{item._gmtModified}}</view>
         <view class="price">{{item.status === 1 ? item._price : 0}}</view>
         <view class="other">
-          <view class="phone">[{{item.application === 0 ? '美' : '饿'}}] {{item._phone || '未填手机号'}}</view>
+          <view class="phone">
+            <text @click="copyData(item.url)">[{{item._applicationName}}]</text> {{item._phone || '未填手机号'}}
+          </view>
           <view class="message" :style="{color: item._color}">
             {{item.status === 0 ? '正在领取红包...' : item.status === 1 ? '领取成功（请以实际到账金额为准）': item.message}}
           </view>
@@ -184,12 +186,18 @@ export default {
 }
 
 .price {
-  width: 80px;
-  padding: 0 20px;
+  width: 60px;
+  padding: 0 10px;
 }
 
 .other {
   text-align: left;
   flex: 1;
+}
+
+.phone {
+  text {
+    color: #40a9ff;
+  }
 }
 </style>

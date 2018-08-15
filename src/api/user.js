@@ -37,6 +37,12 @@ function handleRecord(data) {
     item._color = {0: '', 1: '#5bab60', 2: '#dd2323'}[
       !item.phone && /已领取到最佳前一个红包/.test(item.message) ? 1 : item.status
     ];
+    let elemeType = '';
+    if (item.application === 1 && item.type !== null) {
+      elemeType = ['拼手气', '品质联盟'][item.type] || '';
+    }
+    elemeType = elemeType ? `-${elemeType}` : '';
+    item._applicationName = item.application === 0 ? '美' : `饿${elemeType}`;
   });
   return notArray ? data[0] : data;
 }
