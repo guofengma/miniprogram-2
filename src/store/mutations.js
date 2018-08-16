@@ -26,6 +26,9 @@ export default {
     state.historyPhone.unshift(payload);
     state.historyPhone = state.historyPhone.slice(0, 100);
   },
+  setForceGet(state, payload) {
+    state.forceGet = payload;
+  },
   setUrl(state, payload) {
     state.url = payload;
   },

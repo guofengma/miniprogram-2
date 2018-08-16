@@ -27,5 +27,6 @@ export default {
     ele: []
   },
   statisticsChecked: 0,
-  historyPhone: []
+  historyPhone: [],
+  forceGet: false
 };

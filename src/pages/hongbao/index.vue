@@ -11,6 +11,13 @@
       </view>
       <view class="label">美团、饿了么拼手气红包链接</view>
       <textarea class="textarea" name="url" :value="url" @input="inputUrl" :maxlength="-1" placeholder="不懂怎么复制链接？请到页面底部查看方法" />
+      <view class="label">
+        <checkbox-group @change="setForceGet(!forceGet)">
+          <label>
+            <checkbox :checked="forceGet" color="#d9534f" />强制领取（选中将不检查该链接是否被领过）
+          </label>
+        </checkbox-group>
+      </view>
       <button :class="['get', {'get--disabled': !hongbaoEnable}]" form-type="submit">
         {{hongbaoEnable ? '领取手气最佳红包' : '正在领取红包...'}}
       </button>
@@ -24,7 +31,7 @@
         <view class="price">{{item.status === 1 ? item._price : 0}}</view>
         <view class="other">
           <view class="phone">
-            <text @click="copyData(item.url)">[{{item._applicationName}}]</text> {{item._phone || '未填手机号'}}
+            <text @click="copyData(item.url)">{{item._applicationName}}</text> {{item._phone || '未填手机号'}}
           </view>
           <view class="message" :style="{color: item._color}">
             {{item.status === 0 ? '正在领取红包...' : item.status === 1 ? '领取成功（请以实际到账金额为准）': item.message}}
@@ -60,6 +67,7 @@ import {mapActions, mapState, mapMutations} from 'vuex';
 export default {
   data: () => ({historyIndex: 0}),
   mounted() {
+    this.setForceGet(false);
     this.setHongbaoEnable(true);
     this.getHongbaoData();
   },
@@ -68,10 +76,10 @@ export default {
     await this.getHongbaoData();
     wx.stopPullDownRefresh();
   },
-  computed: mapState(['url', 'phone', 'record', 'hongbaoEnable', 'historyPhone']),
+  computed: mapState(['url', 'phone', 'record', 'hongbaoEnable', 'historyPhone', 'forceGet']),
   methods: {
     ...mapActions(['getHongbaoData', 'getHongbao', 'copyData']),
-    ...mapMutations(['setHongbaoEnable', 'setPhone', 'setUrl']),
+    ...mapMutations(['setHongbaoEnable', 'setPhone', 'setUrl', 'setForceGet']),
     inputPhone(event) {
       this.setPhone(event.target.value);
     },

@@ -63,7 +63,7 @@ export default {
     }
     try {
       this.commit('setHongbaoEnable', false);
-      const record = await User.getHongbao({phone, url});
+      const record = await User.getHongbao({phone, url, force: state.forceGet ? 1 : 0});
       this.commit('addRecord', record);
       const getRecord = async () => {
         const res = await User.getRecord(record.id);

@@ -42,7 +42,7 @@ function handleRecord(data) {
       elemeType = ['拼手气', '品质联盟'][item.type] || '';
     }
     elemeType = elemeType ? `-${elemeType}` : '';
-    item._applicationName = item.application === 0 ? '美' : `饿${elemeType}`;
+    item._applicationName = `[${item.application === 0 ? '美' : '饿' + elemeType}]`;
   });
   return notArray ? data[0] : data;
 }
