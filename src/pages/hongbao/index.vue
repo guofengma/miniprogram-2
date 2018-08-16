@@ -12,9 +12,9 @@
       <view class="label">美团、饿了么拼手气红包链接</view>
       <textarea class="textarea" name="url" :value="url" @input="inputUrl" :maxlength="-1" placeholder="不懂怎么复制链接？请到页面底部查看方法" />
       <view class="label">
-        <checkbox-group @change="setForceGet(!forceGet)">
+        <checkbox-group class="checkbox" @change="setForceGet(!forceGet)">
           <label>
-            <checkbox :checked="forceGet" color="#d9534f" />强制领取（选中将不检查该链接是否被领过）
+            <checkbox :checked="forceGet" color="#d9534f" />强制领取（勾选将不检查该链接是否被领过）
           </label>
         </checkbox-group>
       </view>
@@ -185,7 +185,7 @@ export default {
   height: auto;
   border-radius: 4px;
   line-height: 1;
-  margin-bottom: 15px;
+  margin: 15px 0;
   font-size: 15px;
 
   &--disabled {
@@ -206,6 +206,13 @@ export default {
 .phone {
   text {
     color: #40a9ff;
+  }
+}
+
+.checkbox {
+  label {
+    display: flex;
+    align-items: center;
   }
 }
 </style>
