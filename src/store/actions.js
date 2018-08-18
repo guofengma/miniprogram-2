@@ -102,7 +102,7 @@ export default {
         cancelText: '点错了'
       });
       if (confirm) {
-        this.dispatch('goLogin');
+        await this.dispatch('goLogin');
       }
     } catch (e) {
       this.dispatch('showError', e);
@@ -118,13 +118,14 @@ export default {
       icon: 'none'
     });
   },
-  clearData() {
+  async clearData() {
     this.commit('setToken', null);
     this.commit('setUser', null);
     wx.clearStorageSync();
+    await this.dispatch('copyData', 'https://www.mtdhb.com');
   },
-  goLogin() {
-    this.dispatch('clearData');
+  async goLogin() {
+    await this.dispatch('clearData');
     wx.reLaunch({url: '/pages/login/main'});
   },
   async goHome({state}) {
@@ -158,7 +159,6 @@ export default {
       if (data.length !== 128) {
         return;
       }
-      await wxp.setClipboardData({data: ''});
       await this.dispatch('loginByToken', data);
     } catch (e) {
       console.error(e);
@@ -193,7 +193,7 @@ export default {
       this.commit('setUser', user);
       this.dispatch('goHome');
     } catch (e) {
-      this.dispatch('clearData');
+      await this.dispatch('clearData');
       await wxp.showModal({
         title: '登录失败',
         content: e.message,
