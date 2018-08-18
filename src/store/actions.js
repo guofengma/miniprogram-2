@@ -158,6 +158,7 @@ export default {
       if (data.length !== 128) {
         return;
       }
+      await wxp.setClipboardData({data: ''});
       await this.dispatch('loginByToken', data);
     } catch (e) {
       console.error(e);
