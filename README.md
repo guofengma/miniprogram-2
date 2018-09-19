@@ -6,7 +6,9 @@
 
 <img width="200" src="miniprogram.jpg" />
 
-自己申请小程序搭建本项目的，需要在微信小程序后台设置 request 域名 `https://mtdhb.z.xxooweb.com`
+<del>自己申请小程序搭建本项目的，需要在微信小程序后台设置 request 域名 `https://mtdhb.z.xxooweb.com`</del>
+
+小程序的服务已关闭
 
 ## 环境
 
