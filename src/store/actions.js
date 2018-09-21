@@ -122,7 +122,7 @@ export default {
     this.commit('setToken', null);
     this.commit('setUser', null);
     wx.clearStorageSync();
-    await this.dispatch('copyData', 'https://www.mtdhb.com');
+    await this.dispatch('copyData', 'https://mtdhb.org');
   },
   async goLogin() {
     await this.dispatch('clearData');
@@ -174,7 +174,7 @@ export default {
     } catch (e) {
       await wxp.showModal({
         title: '扫描的目标不正确',
-        content: '请访问 https://www.mtdhb.com 了解如何使用',
+        content: '请访问 https://mtdhb.org 了解如何使用',
         showCancel: false
       });
     }

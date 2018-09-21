@@ -13,19 +13,12 @@ app.$mount();
 
 export default {
   config: {
-    pages: [
-      'pages/contribute/main',
-      'pages/home/main',
-      'pages/hongbao/main',
-      '^pages/login/main',
-      'pages/rank/main',
-      'pages/statistics/main'
-    ],
+    pages: ['pages/home/main', 'pages/hongbao/main', '^pages/login/main', 'pages/rank/main', 'pages/statistics/main'],
     window: {
       backgroundTextStyle: 'dark',
       backgroundColor: '#fff',
       navigationBarBackgroundColor: '#d9534f',
-      navigationBarTitleText: '一键最佳 mtdhb.com',
+      navigationBarTitleText: '一键最佳 mtdhb.org',
       navigationBarTextStyle: '#333',
       enablePullDownRefresh: true
     },
@@ -46,12 +39,6 @@ export default {
           pagePath: 'pages/hongbao/main',
           iconPath: '/static/tab10.png',
           selectedIconPath: '/static/tab11.png'
-        },
-        {
-          text: '贡献',
-          pagePath: 'pages/contribute/main',
-          iconPath: '/static/tab20.png',
-          selectedIconPath: '/static/tab21.png'
         },
         {
           text: '排行',
