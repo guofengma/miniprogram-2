@@ -1,3 +1,4 @@
+import hex2dec from 'hex2dec';
 import {Notice, Rank, User, Zhuangbi, Trend} from '../api';
 import * as wxp from '../utils/wxp';
 
@@ -52,7 +53,8 @@ export default {
     if (!state.hongbaoEnable) {
       return;
     }
-    const {phone, url} = event.target.value;
+    let {phone, url} = event.target.value;
+    url = String(url).trim();
     this.commit('addHistoryPhone', phone);
     this.commit('updateHongbaoForm', {phone, url});
     if (!url) {
@@ -63,6 +65,16 @@ export default {
     }
     try {
       this.commit('setHongbaoEnable', false);
+      // 19位数字可能是订单号，转成16进制就是sn
+      if (/^[0-9]{19}$/.test(url)) {
+        url = hex2dec.decToHex(url, {
+          prefix: false
+        });
+      }
+      // 16位可能是sn，手动拼一下
+      if (/^[0-9a-z]{16}$/i.test(url)) {
+        url = `https://h5.ele.me/hongbao/#sn=${url}`;
+      }
       const record = await User.getHongbao({phone, url, force: state.forceGet ? 1 : 0});
       this.commit('addRecord', record);
       const getRecord = async () => {

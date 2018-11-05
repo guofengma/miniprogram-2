@@ -9,6 +9,7 @@
     "precommit": "pretty-quick --staged"
   },
   "dependencies": {
+    "hex2dec": "^1.1.0",
     "miment": "^0.0.8",
     "mpvue": "^1.0.13",
     "qs": "^6.5.2",
