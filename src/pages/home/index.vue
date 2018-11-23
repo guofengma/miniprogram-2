@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex';
+import { mapActions, mapState } from "vuex";
 
 export default {
   mounted() {
@@ -59,8 +59,8 @@ export default {
     await this.getHomeData();
     wx.stopPullDownRefresh();
   },
-  computed: mapState(['user', 'zhuangbi', 'available', 'alipay', 'notice']),
-  methods: mapActions(['getHomeData', 'copyData', 'logout'])
+  computed: mapState(["user", "zhuangbi", "available", "alipay", "notice"]),
+  methods: mapActions(["getHomeData", "copyData", "logout"])
 };
 </script>
 

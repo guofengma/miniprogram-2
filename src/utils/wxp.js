@@ -1,8 +1,9 @@
-import qs from 'qs';
+import qs from "qs";
 
-const ERROR_MESSAGE = '网络繁忙，请稍后重试';
+const ERROR_MESSAGE = "网络繁忙，请稍后重试";
 
-export const timeout = delay => new Promise(resolve => setTimeout(resolve, delay));
+export const timeout = delay =>
+  new Promise(resolve => setTimeout(resolve, delay));
 
 export const error = (message = ERROR_MESSAGE, data = {}) => {
   const error = new Error(message);
@@ -13,7 +14,13 @@ export const error = (message = ERROR_MESSAGE, data = {}) => {
 export const promisify = (method, context) => (options = {}) =>
   new Promise((resolve, reject) => {
     options.success = resolve;
-    options.fail = (err = {}) => reject(error(/request:fail/i.test(err.errMsg) ? ERROR_MESSAGE : err.errMsg, err));
+    options.fail = (err = {}) =>
+      reject(
+        error(
+          /request:fail/i.test(err.errMsg) ? ERROR_MESSAGE : err.errMsg,
+          err
+        )
+      );
     method.call(context, options);
   });
 
@@ -31,8 +38,8 @@ const _request = promisify(wx.request);
 const _uploadFile = promisify(wx.uploadFile);
 export const request = (options = {}) => {
   options.header = options.header || {};
-  if (options.method === 'POST' && !('content-type' in options.header)) {
-    options.header['content-type'] = 'application/x-www-form-urlencoded';
+  if (options.method === "POST" && !("content-type" in options.header)) {
+    options.header["content-type"] = "application/x-www-form-urlencoded";
   }
   if (options.name && options.filePath) {
     return _uploadFile(options);

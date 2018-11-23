@@ -1,8 +1,8 @@
-import createPersistedState from 'vuex-persistedstate';
+import createPersistedState from "vuex-persistedstate";
 
 export default [
   createPersistedState({
-    key: 'store',
+    key: "store",
     storage: {
       getItem: wx.getStorageSync,
       setItem: wx.setStorageSync,

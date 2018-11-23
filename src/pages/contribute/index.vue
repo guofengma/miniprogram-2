@@ -19,16 +19,16 @@
 </template>
 
 <script>
-import {mapActions, mapState, mapMutations} from 'vuex';
+import { mapActions, mapState, mapMutations } from "vuex";
 
 export default {
   mounted() {
     this.setContributeEnable(true);
   },
-  computed: mapState(['contributeEnable', 'cookie']),
+  computed: mapState(["contributeEnable", "cookie"]),
   methods: {
-    ...mapActions(['contributeCookie']),
-    ...mapMutations(['setContributeEnable'])
+    ...mapActions(["contributeCookie"]),
+    ...mapMutations(["setContributeEnable"])
   }
 };
 </script>

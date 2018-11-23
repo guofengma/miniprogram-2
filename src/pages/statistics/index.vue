@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import {mapActions, mapState, mapMutations} from 'vuex';
+import { mapActions, mapState, mapMutations } from "vuex";
 
 export default {
   mounted() {
@@ -47,10 +47,10 @@ export default {
     await this.getStatisticsData();
     wx.stopPullDownRefresh();
   },
-  computed: mapState(['statistics', 'statisticsChecked']),
+  computed: mapState(["statistics", "statisticsChecked"]),
   methods: {
-    ...mapActions(['getStatisticsData']),
-    ...mapMutations(['toggleStatisticsChecked'])
+    ...mapActions(["getStatisticsData"]),
+    ...mapMutations(["toggleStatisticsChecked"])
   }
 };
 </script>

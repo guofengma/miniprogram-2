@@ -6,8 +6,11 @@
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "rimraf dist && node build/build.js",
-    "precommit": "pretty-quick --staged"
+    "prettier": "pretty-quick --staged"
   },
+  "pre-commit": [
+    "prettier"
+  ],
   "dependencies": {
     "hex2dec": "^1.1.0",
     "miment": "^0.0.8",

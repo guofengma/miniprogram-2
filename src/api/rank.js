@@ -1,3 +1,3 @@
-import {request} from './request';
+import { request } from "./request";
 
-export const getList = () => request({url: '/rank'});
+export const getList = () => request({ url: "/rank" });

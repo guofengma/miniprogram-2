@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex';
+import { mapActions, mapState } from "vuex";
 
 export default {
   mounted() {
@@ -21,8 +21,8 @@ export default {
   onShow() {
     this.loginByClipboard();
   },
-  computed: mapState(['token', 'picture']),
-  methods: mapActions(['goHome', 'loginByScan', 'loginByClipboard'])
+  computed: mapState(["token", "picture"]),
+  methods: mapActions(["goHome", "loginByScan", "loginByClipboard"])
 };
 </script>
 

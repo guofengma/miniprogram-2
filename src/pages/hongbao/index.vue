@@ -63,10 +63,10 @@
 </template>
 
 <script>
-import {mapActions, mapState, mapMutations} from 'vuex';
+import { mapActions, mapState, mapMutations } from "vuex";
 
 export default {
-  data: () => ({historyIndex: 0}),
+  data: () => ({ historyIndex: 0 }),
   mounted() {
     this.setForceGet(false);
     this.setHongbaoEnable(true);
@@ -77,10 +77,17 @@ export default {
     await this.getHongbaoData();
     wx.stopPullDownRefresh();
   },
-  computed: mapState(['url', 'phone', 'record', 'hongbaoEnable', 'historyPhone', 'forceGet']),
+  computed: mapState([
+    "url",
+    "phone",
+    "record",
+    "hongbaoEnable",
+    "historyPhone",
+    "forceGet"
+  ]),
   methods: {
-    ...mapActions(['getHongbaoData', 'getHongbao', 'copyData']),
-    ...mapMutations(['setHongbaoEnable', 'setPhone', 'setUrl', 'setForceGet']),
+    ...mapActions(["getHongbaoData", "getHongbao", "copyData"]),
+    ...mapMutations(["setHongbaoEnable", "setPhone", "setUrl", "setForceGet"]),
     inputPhone(event) {
       this.setPhone(event.target.value);
     },

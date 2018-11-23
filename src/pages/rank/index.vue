@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import {mapActions, mapState, mapMutations} from 'vuex';
+import { mapActions, mapState, mapMutations } from "vuex";
 
 export default {
   mounted() {
@@ -44,10 +44,10 @@ export default {
     await this.getRankData();
     wx.stopPullDownRefresh();
   },
-  computed: mapState(['rank', 'rankChecked']),
+  computed: mapState(["rank", "rankChecked"]),
   methods: {
-    ...mapActions(['getRankData']),
-    ...mapMutations(['toggleRankChecked'])
+    ...mapActions(["getRankData"]),
+    ...mapMutations(["toggleRankChecked"])
   }
 };
 </script>

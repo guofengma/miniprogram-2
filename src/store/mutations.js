@@ -17,7 +17,7 @@ export default {
   toggleRankChecked(state) {
     state.rankChecked = state.rankChecked === 0 ? 1 : 0;
   },
-  updateHongbaoForm(state, {url, phone}) {
+  updateHongbaoForm(state, { url, phone }) {
     state.url = url;
     state.phone = phone;
   },
