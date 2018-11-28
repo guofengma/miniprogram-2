@@ -18,13 +18,15 @@ export default {
   rankChecked: 0,
   rank: {
     meituan: [],
-    ele: []
+    ele: [],
+    star: []
   },
   contributeEnable: true,
   cookie: "",
   statistics: {
     meituan: [],
-    ele: []
+    ele: [],
+    star: []
   },
   statisticsChecked: 0,
   historyPhone: [],

@@ -11,11 +11,11 @@ export default {
   setContributeEnable(state, payload) {
     state.contributeEnable = payload;
   },
-  toggleStatisticsChecked(state) {
-    state.statisticsChecked = state.statisticsChecked === 0 ? 1 : 0;
+  toggleStatisticsChecked(state, event) {
+    state.statisticsChecked = Number(event.target.value);
   },
-  toggleRankChecked(state) {
-    state.rankChecked = state.rankChecked === 0 ? 1 : 0;
+  toggleRankChecked(state, event) {
+    state.rankChecked = Number(event.target.value);
   },
   updateHongbaoForm(state, { url, phone }) {
     state.url = url;

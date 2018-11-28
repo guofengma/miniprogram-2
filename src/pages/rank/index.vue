@@ -2,13 +2,15 @@
   <view class="wrap">
     <view class="tip">贡献小号数量最多的前 100 名用户</view>
     <view class="radios">
-      请选择平台：
       <radio-group @change="toggleRankChecked">
         <label>
           <radio :value="0" :checked="rankChecked === 0" color="#d9534f" />美团
         </label>
         <label>
           <radio :value="1" :checked="rankChecked === 1" color="#d9534f" />饿了么
+        </label>
+        <label>
+          <radio :value="2" :checked="rankChecked === 2" color="#d9534f" />饿了么星选
         </label>
       </radio-group>
     </view>
@@ -21,7 +23,7 @@
         <view>uid</view>
         <view>贡献数量</view>
       </view>
-      <view class="rank" v-for="(item, index) in rank[rankChecked === 0 ? 'meituan': 'ele']" :key="index">
+      <view class="rank" v-for="(item, index) in rank[['meituan', 'ele', 'star'][rankChecked]]" :key="index">
         <view>{{item.ranking}}</view>
         <view>{{item.userId}}</view>
         <view>{{item.count}}</view>

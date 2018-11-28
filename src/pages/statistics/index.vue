@@ -2,13 +2,15 @@
   <view class="wrap">
     <view class="tip">近七天成功领取最大红包的数据</view>
     <view class="radios">
-      请选择平台：
       <radio-group @change="toggleStatisticsChecked">
         <label>
           <radio :value="0" :checked="statisticsChecked === 0" color="#d9534f" />美团
         </label>
         <label>
           <radio :value="1" :checked="statisticsChecked === 1" color="#d9534f" />饿了么
+        </label>
+        <label>
+          <radio :value="2" :checked="statisticsChecked === 2" color="#d9534f" />饿了么星选
         </label>
       </radio-group>
     </view>
@@ -22,12 +24,15 @@
         <view>红包数量</view>
         <view>平均金额</view>
       </view>
-      <view class="item" v-for="(item, index) in statistics[statisticsChecked === 0 ? 'meituan': 'ele']" :key="index">
-        <view>{{item.date}}</view>
-        <view>{{item.totalPrice}}</view>
-        <view>{{item.count}}</view>
-        <view>{{item._avg}}</view>
-      </view>
+      <block v-if="statisticsChecked === 0">
+        <view class="item" v-for="(item, index) in statistics[['meituan', 'ele', 'star'][statisticsChecked]]" :key="index">
+          <view>{{item.date}}</view>
+          <view>{{item.totalPrice}}</view>
+          <view>{{item.count}}</view>
+          <view>{{item._avg}}</view>
+        </view>
+      </block>
+      <view v-else class="item--empty">由于只能领到最大前一个，不展示此统计</view>
     </view>
     <view class="rules">
       <view>1. 现在支持了领取到最佳前一个, 那部分领取金额不在统计之内</view>
@@ -98,6 +103,12 @@ export default {
 
   &--first {
     font-weight: bold;
+  }
+
+  &--empty {
+    text-align: center;
+    padding: 15px 0;
+    color: #999;
   }
 
   view {

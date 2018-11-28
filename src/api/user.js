@@ -45,6 +45,8 @@ function handleRecord(data) {
     let elemeType = "";
     if (item.application === 1 && item.type !== null) {
       elemeType = ["拼手气", "品质联盟"][item.type] || "";
+    } else if (item.application === 2) {
+      elemeType = "星选";
     }
     elemeType = elemeType ? `-${elemeType}` : "";
     item._applicationName = `[${

@@ -44,7 +44,8 @@
         <view class="title">红包链接说明</view>
         <view>1. 饿了么红包：https://h5.ele.me/hongbao/ 开头的链接。链接不带 lucky_number 的不是拼手气，不能用。</view>
         <view>2. 美团红包：https://activity.waimai.meituan.com/coupon/ 开头的链接。</view>
-        <view>3. 短链接：https://url.cn/ 开头的链接。</view>
+        <view>3. 饿了么星选红包：https://star.ele.me/hongbao/wpshare 开头的链接。</view>
+        <view>4. 短链接：https://url.cn/ 开头的链接。</view>
       </view>
       <view class="rule">
         <view class="title">如何获取拼手气红包？</view>

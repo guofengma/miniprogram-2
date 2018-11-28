@@ -25,7 +25,9 @@
       </view>
       <view class="profile__info">
         <view class="profile__email">{{user.mail}} (uid: {{user.id}})</view>
-        <view>美团 <text>{{available.meituan.available}}/{{available.meituan.total}}</text> 饿了么 <text>{{available.ele.available}}/{{available.ele.total}}</text></view>
+        <view>美团 <text>{{available.meituan.available}}/{{available.meituan.total}}</text></view>
+        <view>饿了么 <text>{{available.ele.available}}/{{available.ele.total}}</text></view>
+        <view>饿了么星选 <text>{{available.star.available}}/{{available.star.total}}</text></view>
       </view>
     </view>
 
