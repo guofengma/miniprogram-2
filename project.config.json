@@ -10,7 +10,7 @@
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
 	"appid": "wx55fe519139f48efe",
-	"projectname": "hongbao2-mp",
+	"projectname": "miniprogram",
 	"condition": {
 		"search": {
 			"current": -1,
